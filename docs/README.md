@@ -1,3 +1,19 @@
+---
+page_type: sample
+languages:
+  - azdeveloper
+  - java
+  - bicep
+products:
+  - azure
+  - ai-services
+  - azure-openai
+urlFragment: azure-openai-keyless-java
+---
+
+<!-- YAML front-matter schema: https://review.learn.microsoft.com/help/contribute/samples/process/onboarding?branch=main#supported-metadata-fields-for-readmemd -->
+
+
 # Azure OpenAI Keyless Deployment
 
 The purpose of this repository is to provision an Azure OpenAI account with an RBAC role permission for your user account to access,
