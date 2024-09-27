@@ -29,10 +29,18 @@ so that you can use the OpenAI API SDKs with keyless (Entra) authentication. By 
     azd env set AZURE_LOCATION "yournewlocationname"
     ```
 
-3. When `azd` has finished, you should have an OpenAI account you can use locally when logged into your Azure account. You can output the necessary environment variables into an `.env` file like so:
+3. When `azd` has finished, you should have an OpenAI account you can use locally when logged into your Azure account. You can output the necessary environment variables into an `.env` file by running a script:
+
+   For Mac OS X / Linux:
 
     ```shell
-    azd env get-values > .env
+    ./write_dot_env.sh
+    ```
+   
+   For Windows:
+
+    ```shell
+    pwsh ./write_dot_env.ps1
     ```
 
 4. Then you can run the example code in this repository.

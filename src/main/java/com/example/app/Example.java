@@ -27,7 +27,10 @@ public class Example {
      * @param args Unused. Arguments to the program.
      */
     public static void main(String[] args) {
-        Dotenv dotenv = Dotenv.load();
+        Dotenv dotenv = Dotenv
+            .configure()
+            .directory(".azure/chat-app/.env")
+            .load();
         String azureOpenaiService = dotenv.get("AZURE_OPENAI_SERVICE");
         String deploymentOrModelId = dotenv.get("AZURE_OPENAI_GPT_DEPLOYMENT");
         if (azureOpenaiService == null || deploymentOrModelId == null) {

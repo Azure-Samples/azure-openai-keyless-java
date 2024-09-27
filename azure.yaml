@@ -2,4 +2,4 @@
 
 name: azure-openai-keyless-java
 metadata:
-  template: azure-openai-keyless-java@0.0.1
+  template: azure-openai-keyless-java@0.0.2
