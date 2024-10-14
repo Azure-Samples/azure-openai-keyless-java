@@ -53,6 +53,11 @@ param gptDeploymentCapacity int = 30
 @description('Id of the user or app to assign application roles')
 param principalId string = ''
 
+@description('Non-empty if the deployment is running on GitHub Actions')
+param runningOnGitHub string = ''
+
+var principalType = empty(runningOnGitHub) ? 'User' : 'ServicePrincipal'
+
 var resourceToken = toLower(uniqueString(subscription().id, environmentName, location))
 var prefix = '${environmentName}${resourceToken}'
 var tags = { 'azd-env-name': environmentName }
@@ -65,7 +70,7 @@ resource resourceGroup 'Microsoft.Resources/resourceGroups@2021-04-01' = {
 }
 
 var openAiServiceName = '${prefix}-openai'
-module openAi 'br/public:avm/res/cognitive-services/account:0.5.4' = {
+module openAi 'br/public:avm/res/cognitive-services/account:0.7.1' = {
   name: 'openai'
   scope: resourceGroup
   params: {
@@ -75,12 +80,10 @@ module openAi 'br/public:avm/res/cognitive-services/account:0.5.4' = {
     kind: 'OpenAI'
     sku: 'S0'
     customSubDomainName: openAiServiceName
-    publicNetworkAccess: 'Enabled'
     networkAcls: {
       defaultAction: 'Allow'
       bypass: 'AzureServices'
     }
-    disableLocalAuth: true
     deployments: [
       {
         name: gptDeploymentName
@@ -99,7 +102,7 @@ module openAi 'br/public:avm/res/cognitive-services/account:0.5.4' = {
       {
         principalId: principalId
         roleDefinitionIdOrName: 'Cognitive Services OpenAI User'
-        principalType: 'User'
+        principalType: principalType
       }
     ]
   }
